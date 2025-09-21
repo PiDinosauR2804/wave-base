@@ -36,7 +36,7 @@ class Manager(object):
         def train_data(data_loader_, name=""):
             losses = []
             accuracies = []
-            td = tqdm(data_loader_, desc=name)
+            td = tqdm.tqdm(data_loader_, desc=name)
 
             sampled = 0
             total_hits = 0
@@ -152,7 +152,7 @@ class Manager(object):
 
         data_loader = get_data_loader(args, training_data, shuffle=True)
         new_training_data = []
-        td = tqdm(data_loader, desc=f"get_prompt_key_task_{task_id+1}")
+        td = tqdm.tqdm(data_loader, desc=f"get_prompt_key_task_{task_id+1}")
         for step, (labels, tokens, _) in enumerate(td):
             targets = labels.type(torch.LongTensor).to(args.device)
             tokens = torch.stack([x.to(args.device) for x in tokens], dim=0)
@@ -172,7 +172,7 @@ class Manager(object):
         def train_data(data_loader_, name="", e_id=0):
             losses = []
             accuracies = []
-            td = tqdm(data_loader_, desc=name)
+            td = tqdm.tqdm(data_loader_, desc=name)
 
             sampled = 0
             total_hits = 0
@@ -218,7 +218,7 @@ class Manager(object):
     def sample_memorized_data(self, args, encoder, prompt_pool, relation_data, name, task_id):
         encoder.eval()
         data_loader = get_data_loader(args, relation_data, shuffle=False)
-        td = tqdm(data_loader, desc=name)
+        td = tqdm.tqdm(data_loader, desc=name)
 
         # output dict
         out = {}
@@ -259,7 +259,7 @@ class Manager(object):
         data_loader = get_data_loader(args, test_data, batch_size=1, shuffle=False)
 
         # tqdm
-        td = tqdm(data_loader, desc=name)
+        td = tqdm.tqdm(data_loader, desc=name)
 
         # initialization
         sampled = 0

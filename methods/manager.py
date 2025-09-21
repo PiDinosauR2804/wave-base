@@ -97,7 +97,7 @@ class Manager(object):
         def train_data(data_loader_, name="", e_id=0):
             losses = []
             accuracies = []
-            td = tqdm(data_loader_, desc=name)
+            td = tqdm.tqdm(data_loader_, desc=name)
 
             sampled = 0
             total_hits = 0

@@ -263,7 +263,7 @@ class Manager(object):
 
         # initialization
         sampled = 0
-        total_hits = np.zeros(5)
+        total_hits = np.zeros(6)
 
         # testing
         for step, (labels, tokens, _) in enumerate(td):
@@ -323,6 +323,8 @@ class Manager(object):
                 total_hits[3] += (pred == targets).float().sum().data.cpu().numpy().item()
                 
                 total_hits[4] += ((pred == targets) & (total_true_task==0)).float().sum().data.cpu().numpy().item()
+                
+                total_hits[5] += ((total_true_task==0)).float().sum().data.cpu().numpy().item()
 
                 # display
                 td.set_postfix(acc=np.round(total_hits / sampled, 3))
@@ -330,6 +332,9 @@ class Manager(object):
                 sampled -= len(labels)
                 continue
 
+        total_hits[4]  *= sampled
+        total_hits[5]  *= sampled
+        
         return total_hits / sampled
 
     def train(self, args):
